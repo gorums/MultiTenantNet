@@ -73,10 +73,10 @@ The first that you need to do is create an account on [Azure](https://azure.micr
  Why do we need a WildCard Domain?
  
  Because we need to identify which tenant you want to hit using a subdomain Ex.
-  - tenant1.myapp.com (we want to hit tenant1 database)
-  - tenant2.myapp.com (we want to hit tenant2 database)
+  - tenant1.myapplicationmulttenant.com (we want to hit tenant1 database)
+  - tenant2.myapplicationmulttenant.com (we want to hit tenant2 database)
   
-  And remember we are creating new tenants on the fly.
+  And remember here we are creating new tenants on the fly.
   
   ```
   public class DomainHelper
@@ -92,5 +92,37 @@ The first that you need to do is create an account on [Azure](https://azure.micr
   ```
   
   ## Development Enviroment
+  
+  To run this project on locally and test different tenants in your local machine you need to edit your host file on **C:\Windows\System32\drivers\etc** and add for example
+  
+  ```
+  127.0.0.1       enant1.myapplicationmulttenant-test.com
+  127.0.0.1       enant2.myapplicationmulttenant-test.com
+  ```
+  
+  and then if you run the application and put on the browser **enant1.myapplicationmulttenant-test.com:58670** the application get the request instead send the request to internet. 
+
+Notes that by default you application is listened for **localhost** not for **127.0.0.1** to change that you need to edit **.vs\config\applicationhost.config** and change
+  ```
+   <site name="MultiTenantNet.Web" id="2">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\Work\gorums\MultiTenantNet\MultiTenantNet.Web" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:58670:localhost" />
+                </bindings>
+            </site>
+  ```
+  to
+  ```
+   <site name="MultiTenantNet.Web" id="2">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="D:\Work\gorums\MultiTenantNet\MultiTenantNet.Web" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:58670:127.0.0.1
+                </bindings>
+            </site>
+  ```
   
   
