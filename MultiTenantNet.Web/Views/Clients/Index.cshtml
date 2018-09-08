@@ -1,0 +1,27 @@
+﻿<a href="/">Home</a>
+<div class="jumbotron">
+    <h1>List of Clients from @ViewBag.TenantName</h1>
+    <a href="/Tenants/List">List of Tenants</a>
+</div>
+
+<div>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>First Name </th>
+            <th>Last Name </th>
+            <th>Email</th>
+        </tr>
+        @foreach (var client in ViewBag.clients)
+        {
+        <tr>
+            <td>@client.Id</td>
+            <td>@client.Username</td>
+            <td>@client.FirstName</td>
+            <td>@client.LastName</td>
+            <td>@client.Email</td>
+        </tr>
+        }
+    </table>    
+</div>

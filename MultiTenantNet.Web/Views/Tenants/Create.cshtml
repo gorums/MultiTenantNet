@@ -1,0 +1,23 @@
+﻿<a href="/">Home</a>
+<div class="jumbotron">
+    <h1>Create new Tenant</h1>
+    <a href="List">List of Tenants</a>
+</div>
+
+@using (Html.BeginForm())
+{
+
+    <label for="tenantName">Tenant Name:</label>
+    <input type="text" name="tenantName" />
+    
+    <br />
+
+    <input type="submit" name="submit" />
+}
+
+@if (ViewBag.ErrorMsg != null)
+{
+    <div class="alert alert-danger">
+        <strong>@ViewBag.ErrorMsg</strong>
+     </div>
+}

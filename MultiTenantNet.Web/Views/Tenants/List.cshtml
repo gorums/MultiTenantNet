@@ -1,0 +1,18 @@
+﻿<a href="/">Home</a>
+<div class="jumbotron">
+    <h1>List of Tenants</h1>
+    <a href="Create">Create new Tenant</a>
+</div>
+
+<div>
+    <ul>
+        @foreach (var tenantName in ViewBag.Tenants)
+        {
+            var url = $"http://{tenantName}.{ViewBag.Domain}/Clients/";
+            var urlDelete = $"http://{tenantName}.{ViewBag.Domain}/Tenants/Delete?tenantName={tenantName}";
+            <li>
+                Go to <a href=@url>@tenantName</a> Clients or <a href=@urlDelete>Delete</a>
+            </li>
+        }
+    </ul>
+</div>
