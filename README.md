@@ -12,11 +12,85 @@ This project use .Net Framework 6.2, Entity Framework 6.2, SimpleInjector as DI 
 
 ### Database per tenant SaaS pattern
 
-This pattern is effective for service providers that are concerned with tenant isolation and want to run a centralized service (SaaS)
-that allows cost-efficient use of shared resources. A database is created for each tenant automatic using a template database that you need to setup on your AppSetting. If you need to handle differet schemas you can do it using multiples DbContext pattern. 
-Also they are hosted in Azure Elastic Pools to provide cost-efficient and easy performance management. 
-A catalog database holds the mapping between tenants and their databases. This mapping is managed using the **shard map management** features of the Elastic Database Client Library, which also provides efficient connection management to the application.
+This pattern is effective for service providers that are concerned with tenant isolation and want to run a centralized service (SaaS) that allows cost-efficient use of shared resources. A database is created for each tenant automatic using a template database that you need to setup on your AppSetting. If you need to handle differet schemas you can do it using multiples DbContext pattern. Also they are hosted in Azure Elastic Pools to provide cost-efficient and easy performance management. A catalog database holds the mapping between tenants and their databases. This mapping is managed using the **shard map management** features of the Elastic Database Client Library, which also provides efficient connection management to the application.
 
 ![Database per Tenant](./AppVersions.PNG)
 
 ## Get started 
+
+The first that you need to do is create an account on [Azure](https://azure.microsoft.com/en-us/), add a subscription and add all the resources that you need to run this mult-tenant app and finaly setup your Web.config for you development enviroment.
+
+```
+<!-- Database Server name where we have the template database, the catalog database and the Tenants databases Ex. myserversql, taken from myserversql.database.windows.net -->
+    <add key="DatabaseConfigServerName" value="myserversql" />
+    <!-- Database Server port Ex.  1433 -->
+    <add key="DatabaseConfigServerPort" value="1433" />
+    <!-- Database username Ex. myserversql -->
+    <add key="DatabaseConfigUser" value="myserversql" />
+    <!-- Database password Ex. myserversql -->
+    <add key="DatabaseConfigPassword" value="myserversql" />
+    <!-- Database timeout Ex. 100 -->
+    <add key="DatabaseConfigConnectionTimeOut" value="100" />
+    
+    <!-- The template database to use as referent for the new database Tenant Ex. dev-template -->
+    <add key="TenantConfigTemplateDatabase" value="dev-multtenant-template" />    
+    <!-- The catalago database name Ex. dev-multtenant-catalog -->
+    <add key="CatalogConfigDatabase" value="dev-multtenant-catalog" />
+    
+    <!-- The wildcard domain where we are going to listen all the request Ex. myapplicationmulttenant.com:58670 on development, on production we dont need the port -->
+    <add key="ApplicationConfigDomain" value="myapplicationmulttenant.com:58670" />
+    <!-- To know about how get clientId check https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal -->
+    <add key="ApplicationConfigClientId" value="5685ba91-354c-41c2-82f5-03fb156cc8aa" />
+    <!-- To know about how get clientSecret check https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal -->
+    <add key="ApplicationConfigClientSecret" value="+gtflyb+UPPGBaQSwumJMUsSQWQufClaF3yeDb0tjZo=" />
+    <!-- To know about how get tenantId check https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal -->
+    <add key="ApplicationConfigTenantId" value="9609f5f7-6689-4d85-8fcc-925362a06575" />
+    <!-- Subscription Id -->
+    <add key="ApplicationConfigSubscription" value="44439e2c-0dca-4cec-aaaf-011a850aacb2" />
+    <!-- Resource group name -->
+    <add key="ApplicationConfigResourceGroupName" value="EastUS" />
+```
+
+ - ConnectionString
+ 
+ ```
+ <connectionStrings>
+    <add name="CatalogDb" connectionString="data source=myserversql.database.windows.net,1433;initial catalog=dev-multtenant-catalog;persist security info=True;user id=myserversql;password=myserversql;multipleactiveresultsets=True;application name=EntityFramework" providerName="System.Data.SqlClient" />
+    <!--We only need to uncomment this connectionstring when we want to add-migration on the tenant side -->
+    <!--add name="TenantDb" connectionString="data source=myserversql.database.windows.net,1433;initial catalog=dev-{mydb};persist security info=True;user id=myserversql;password=myserversql;multipleactiveresultsets=True;application name=EntityFramework" providerName="System.Data.SqlClient" /-->
+  </connectionStrings>
+ ```
+### Resources on Azure
+
+ - Subscription
+ - Azure SQL Elastic Pool
+ - Service Plan
+ - Service Application
+ - [WildCard Domain](https://azure.microsoft.com/en-us/blog/azure-websites-and-wildcard-domains/) 
+ 
+ ### WildCard Domain
+ 
+ Why do we need a WildCard Domain?
+ 
+ Because we need to identify which tenant you want to hit using a subdomain Ex.
+  - tenant1.myapp.com (we want to hit tenant1 database)
+  - tenant2.myapp.com (we want to hit tenant2 database)
+  
+  And remember we are creating new tenants on the fly.
+  
+  ```
+  public class DomainHelper
+    {
+        public static string GetTenantName()
+        {
+            string[] subDomains = HttpContext.Current.Request.Url.Host.ToLower().Split('.');
+            var tenantName = subDomains[0];
+
+            return tenantName;
+        }
+    }
+  ```
+  
+  ## Development Enviroment
+  
+  
