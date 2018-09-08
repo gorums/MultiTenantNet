@@ -67,10 +67,8 @@ The first that you need to do is create an account on [Azure](https://azure.micr
  - Service Application
  - [WildCard Domain](https://azure.microsoft.com/en-us/blog/azure-websites-and-wildcard-domains/) 
  
- ### WildCard Domain
- 
- Why do we need a WildCard Domain?
- 
+ ### Why WildCard Domain
+  
  Because we need to identify which tenant you want to hit using a subdomain Ex.
   - tenant1.myapplicationmulttenant.com (we want to hit tenant1 database)
   - tenant2.myapplicationmulttenant.com (we want to hit tenant2 database)
