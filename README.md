@@ -3,7 +3,7 @@ Multi Tenant Dotnet App (SaaS)
 
 ## Introduction
 
-This is a multi-tenant application, one application (**SaaS**) with multiple databases, each tenant has his own database with the same schema, the use of single-tenant databases gives strong tenant isolation.
+This is a multi-tenant application prototype, one application (**SaaS**) with multiple databases, each tenant has his own database with the same schema, the use of single-tenant databases gives strong tenant isolation.
 
 If you need differen schemas in each single-tenant database this project is easy to change using *multiples DbContext pattern* but you need to do that changes.
 
