@@ -20,7 +20,7 @@ This pattern is effective for service providers that are concerned with tenant i
 The first that you need to do is create an account on [Azure](https://azure.microsoft.com/en-us/), add a subscription and all the resources that you need to run this mult-tenant application and finaly setup your Web.config for you development enviroment.
 
 ```
-<!-- Database Server name where we have the template database, the catalog database and the Tenants databases Ex. myserversql, taken from myserversql.database.windows.net -->
+    <!-- Database Server name where we have the template database, the catalog database and the Tenants databases Ex. myserversql, taken from myserversql.database.windows.net -->
     <add key="DatabaseConfigServerName" value="myserversql" />
     <!-- Database Server port Ex.  1433 -->
     <add key="DatabaseConfigServerPort" value="1433" />
@@ -33,7 +33,7 @@ The first that you need to do is create an account on [Azure](https://azure.micr
     
     <!-- The template database to use as referent for the new database Tenant Ex. dev-template -->
     <add key="TenantConfigTemplateDatabase" value="dev-multtenant-template" />    
-    <!-- The catalago database name Ex. dev-multtenant-catalog -->
+    <!-- The catalag database name Ex. dev-multtenant-catalog -->
     <add key="CatalogConfigDatabase" value="dev-multtenant-catalog" />
     
     <!-- The wildcard domain where we are going to listen all the request Ex. myapplicationmulttenant.com:58670 on development, on production we dont need the port -->
