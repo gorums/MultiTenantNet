@@ -3,12 +3,12 @@ Multi Tenant Dotnet App (SaaS)
 
 ## Introduction
 
-This is a multi-tenant application, one application (SaaS) with multiples database, each tenant has his own database with the same schema, 
+This is a multi-tenant application, one application (**SaaS**) with multiples database, each tenant has his own database with the same schema, 
 the use of single-tenant databases gives strong tenant isolation.
 
 If you need different schema in each single-tenant database this project is easy to change to allow that using multiples DbContext pattern.
 
-This project use .Net Framework 6.2, Entity Framework 6.2, SimpleInjector as DI with the idea to be hosted on Azure using Azure SQL Elastic Database.
+This project use **.Net Framework 6.2**, **Entity Framework 6.2**, **SimpleInjector** as DI with the idea to be hosted on Azure using **Azure SQL Elastic Database**.
 
 ### Database per tenant SaaS pattern
 
@@ -120,7 +120,7 @@ Notes that by default you application is listened for **localhost** not for **12
                     <virtualDirectory path="/" physicalPath="D:\Work\gorums\MultiTenantNet\MultiTenantNet.Web" />
                 </application>
                 <bindings>
-                    <binding protocol="http" bindingInformation="*:58670:127.0.0.1
+                    <binding protocol="http" bindingInformation="*:58670:127.0.0.1" />
                 </bindings>
             </site>
   ```
