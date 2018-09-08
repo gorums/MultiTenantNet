@@ -106,7 +106,7 @@ Notes that by default you application is listened for **localhost** not for **12
   ```
    <site name="MultiTenantNet.Web" id="2">
                 <application path="/" applicationPool="Clr4IntegratedAppPool">
-                    <virtualDirectory path="/" physicalPath="D:\Work\gorums\MultiTenantNet\MultiTenantNet.Web" />
+                    <virtualDirectory path="/" physicalPath="C:\MultiTenantNet\MultiTenantNet.Web" />
                 </application>
                 <bindings>
                     <binding protocol="http" bindingInformation="*:58670:localhost" />
@@ -117,7 +117,7 @@ Notes that by default you application is listened for **localhost** not for **12
   ```
    <site name="MultiTenantNet.Web" id="2">
                 <application path="/" applicationPool="Clr4IntegratedAppPool">
-                    <virtualDirectory path="/" physicalPath="D:\Work\gorums\MultiTenantNet\MultiTenantNet.Web" />
+                    <virtualDirectory path="/" physicalPath="C:\MultiTenantNet\MultiTenantNet.Web" />
                 </application>
                 <bindings>
                     <binding protocol="http" bindingInformation="*:58670:127.0.0.1" />
