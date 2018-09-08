@@ -14,6 +14,7 @@ The framework and libraries behind are **ASP .Net MVC 5** with **.Net Framework 
 This pattern is effective for service providers that are concerned with tenant isolation and want to run a centralized service (SaaS) that allows cost-efficient use of shared resources. A database is created for each tenant automatic using a template database that you need to setup on your *AppSetting*. If you need to handle differet schemas you can do it using *multiples DbContext pattern*. Also they are hosted in **Azure Elastic Pools** to provide cost-efficient and easy performance management. A catalog database holds the mapping between tenants and their databases. This mapping is managed using the **shard map management** features of the **Elastic Database Client Library**, which also provides efficient connection management to the application.
 
 ![Database per Tenant](./AppVersions.PNG)
+to check another example of this kind of application click [here](https://github.com/Microsoft/WingtipTicketsSaaS-DbPerTenant)
 
 ## Get started 
 
